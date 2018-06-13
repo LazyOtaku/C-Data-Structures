@@ -15,7 +15,7 @@ int position_deletion(struct node* h, struct node* r);
 struct node{
 	int info;
 	struct node* next;
-}
+};
 
 int num_entries = 0; //length of list
 
@@ -32,25 +32,25 @@ int main()
 		switch(n)
 		{
 			case 1: x = front_insertion(head,rear);
-					break();
+					break;
 			case 2: x = end_insertion(head,rear);
-					break();
+					break;
 			case 3: x = display(head,rear);
-					break();
+					break;
 			case 4: x = front_deletion(head,rear);
-					break();
+					break;
 			case 5: x = end_deletion(head,rear);
-					break();
+					break;
 			case 6: x = position_insertion(head,rear);
-					break();
+					break;
 			case 7: x = position_deletion(head,rear);
-					break();
+					break;
 			case 8: exit(0);
 			default: x = -1;
 		}
 		if(x!=OP_SUC)
 		{
-			printf("Operation unsuccessful");
+			printf("\nOperation unsuccessful");
 		}
 	}
 	return 0;
@@ -67,7 +67,7 @@ int get_info()
 struct node* create()
 {
 	int info = get_info();
-	struct node* newnode = malloc(sizeof(struct node*));
+	struct node* newnode = malloc(sizeof(struct node));
 	// if malloc doesnt work return NULL;
 	newnode->info = info;
 	newnode->next = NULL;
@@ -165,7 +165,7 @@ int end_deletion(struct node* head,struct node* rear)
 	return OP_SUC;
 } 
 
-int display(struct node* head, struct node* rear);
+int display(struct node* head, struct node* rear)
 {
 	struct node* temp;
 	temp = head;
@@ -196,12 +196,12 @@ int position_insertion(struct node* head,struct node* rear)
 {
 	int pos;
 	int x = -1;
-	printf("\nEnter position for insertion(1,2,3...): ")
+	printf("\nEnter position for insertion(1,2,3...): ");
 	scanf("%d",&pos);
 
 	if( pos > num_entries+1 || pos < 1 )
 	{
-		printf("\nIncorrect value for position")
+		printf("\nIncorrect value for position");
 		return -1;
 	}
 	if( pos == 1)
@@ -217,6 +217,7 @@ int position_insertion(struct node* head,struct node* rear)
 
 	int i = 2;
 	struct node* temp;
+	struct node* prev;
 	temp = head->next;
 	prev = head;
 
@@ -242,12 +243,12 @@ int position_deletion(struct node* head,struct node* rear)
 {
 	int pos;
 	int x = -1;
-	printf("\nEnter position for deletion(1,2,3...): ")
+	printf("\nEnter position for deletion(1,2,3...): ");
 	scanf("%d",&pos);
 
 	if( pos > num_entries || pos < 1 )
 	{
-		printf("\nIncorrect value for position")
+		printf("\nIncorrect value for position");
 		return -1;
 	}
 	if( pos == 1)
@@ -263,6 +264,7 @@ int position_deletion(struct node* head,struct node* rear)
 
 	int i = 2;
 	struct node* temp;
+	struct node* prev;
 	temp = head->next;
 	prev = head;
 
