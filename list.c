@@ -67,7 +67,8 @@ int get_info()
 struct node* create()
 {
 	int info = get_info();
-	struct node* newnode = malloc(sizeof(struct node));
+	struct node* newnode;
+	newnode = (struct node *)malloc(sizeof(struct node));
 	// if malloc doesnt work return NULL;
 	newnode->info = info;
 	newnode->next = NULL;
