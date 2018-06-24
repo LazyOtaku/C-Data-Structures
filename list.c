@@ -1,3 +1,15 @@
+/*
+Singly Linked list
+Operations that can be performed:
+	1. Insertion in the beginning
+	2. Insertion at the end of the list
+	3. Deletion in the beginning
+	4. Deletion at the end of the list
+	5. Display the linked list
+	6. Insertion at desired position
+	7. Deletion at desired position in the list
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #define OP_SUC 0  //operation successful. cannot be -1.
