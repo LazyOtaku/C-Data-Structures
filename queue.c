@@ -20,7 +20,6 @@ struct node{
 	struct node* next;
 };
 
-int num_entries = 0; //length of Queue
 struct node* head ;
 struct node* rear ;
  
@@ -87,7 +86,6 @@ int enqueue()
 		rear->next = newnode;
 		rear = newnode;
 	}
-	num_entries++;
 	return OP_SUC;
 } 
 
@@ -114,8 +112,6 @@ int dequeue()
 		head = temp->next;
 		free(temp);
 	}
-	num_entries--;
-	//printf("\nEntry removed");
 	return OP_SUC;
 }
 
@@ -123,7 +119,6 @@ int display()
 {
 	
 	printf("\n");
-	//printf("\n%d entries: ",num_entries)
 	if(head == NULL)
 	{
 		printf("Queue is empty\n");
