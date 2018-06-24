@@ -4,13 +4,13 @@
 
 int get_info();
 struct node* create();
-int front_insertion(struct node* h, struct node* r);
-int end_insertion(struct node* h, struct node* r);
-int display(struct node* h, struct node* r);
-int front_deletion(struct node* h, struct node* r);
-int end_deletion(struct node* h, struct node* r);
-int position_insertion(struct node* h, struct node* r);
-int position_deletion(struct node* h, struct node* r);
+int front_insertion();
+int end_insertion();
+int display();
+int front_deletion();
+int end_deletion();
+int position_insertion();
+int position_deletion();
 
 struct node{
 	int info;
@@ -18,45 +18,47 @@ struct node{
 };
 
 int num_entries = 0; //length of list
-
+struct node* head ;
+struct node* rear ;
+ 
 int main()
 {
 	int n;
 	int x;
-	struct node *head = NULL;
-	struct node *rear = NULL;
+	head = NULL;
+	rear = NULL;
 	while(1)
 	{
-		printf("\n1 front_insertion\n2 end_insertion\n3 display\n4 front_deletion\n5 end_deletion\n6 position_insertion\n7 position_deletion\n8 exit\n");
+		printf("\n1 front_insertion\n2 end_insertion\n3 display\n4 front_deletion\n5 end_deletion\n6 position_insertion\n7 position_deletion\n8 exit\nEnter your choice: ");
 		scanf("%d",&n);
 		switch(n)
 		{
-			case 1: x = front_insertion(head,rear);
+			case 1: x = front_insertion();
 					break;
-			case 2: x = end_insertion(head,rear);
+			case 2: x = end_insertion();
 					break;
-			case 3: x = display(head,rear);
+			case 3: x = display(head);
 					break;
-			case 4: x = front_deletion(head,rear);
+			case 4: x = front_deletion();
 					break;
-			case 5: x = end_deletion(head,rear);
+			case 5: x = end_deletion();
 					break;
-			case 6: x = position_insertion(head,rear);
+			case 6: x = position_insertion();
 					break;
-			case 7: x = position_deletion(head,rear);
+			case 7: x = position_deletion();
 					break;
 			case 8: exit(0);
 			default: x = -1;
 		}
 		if(x!=OP_SUC)
 		{
-			printf("\nOperation unsuccessful");
+			printf("\nOperation unsuccessful\n");
 		}
 	}
 	return 0;
 }
 
-int get_info()
+int  get_info()
 {
 	int info;
 	printf("\nEnter num to be inserted: ");
@@ -68,14 +70,14 @@ struct node* create()
 {
 	int info = get_info();
 	struct node* newnode;
-	newnode = (struct node *)malloc(sizeof(struct node));
+	newnode = (struct node*)malloc(sizeof(struct node));
 	// if malloc doesnt work return NULL;
 	newnode->info = info;
 	newnode->next = NULL;
 	return newnode;
 }
 
-int front_insertion(struct node* head,struct node* rear)
+int front_insertion()
 {
 	struct node* newnode;
 	newnode = create();
@@ -87,14 +89,14 @@ int front_insertion(struct node* head,struct node* rear)
 	}
 	else
 	{
-		newnode->next = head->next;
+		newnode->next = head;
 		head = newnode;
 	}
 	num_entries++;
 	return OP_SUC;
 }
 
-int end_insertion(struct node* head,struct node* rear)
+int end_insertion()
 {
 	struct node* newnode;
 	newnode = create();
@@ -106,18 +108,19 @@ int end_insertion(struct node* head,struct node* rear)
 	}
 	else
 	{
-		rear->next = newnode->next;
+		rear->next = newnode;
 		rear = newnode;
 	}
 	num_entries++;
 	return OP_SUC;
 } 
 
-int front_deletion(struct node* head,struct node* rear)
+int front_deletion()
 {
+	
 	if( head == NULL)
 	{
-		printf("\nList is empty");
+		printf("\nList is empty\n");
 		return -1;
 	}
 	if( head->next == NULL)
@@ -130,7 +133,7 @@ int front_deletion(struct node* head,struct node* rear)
 	{
 		struct node *temp;
 		temp = head;
-		head = head->next;
+		head = temp->next;
 		free(temp);
 	}
 	num_entries--;
@@ -138,11 +141,12 @@ int front_deletion(struct node* head,struct node* rear)
 	return OP_SUC;
 }
 
-int end_deletion(struct node* head,struct node* rear)
+int end_deletion()
 {
+	
 	if( head == NULL)
 	{
-		printf("\nList is empty");
+		printf("\nList is empty\n");
 		return -1;
 	}
 	if( head->next == NULL)
@@ -166,34 +170,36 @@ int end_deletion(struct node* head,struct node* rear)
 	return OP_SUC;
 } 
 
-int display(struct node* head, struct node* rear)
+int display()
 {
-	struct node* temp;
-	temp = head;
+	
+	printf("\n");
 	//printf("\n%d entries: ",num_entries)
 	if(head == NULL)
 	{
-		printf("\nList is empty");
+		printf("List is empty\n");
 		return -1;
 	}
-	else if(head->next == NULL)
+	if(head->next == NULL)
 	{
-		printf("%d",temp->info);
+		printf("%d -> ",head->info);
 	}
 	else
-	{	
+	{	struct node* temp;
+		temp = head;
 		while(temp!=rear)
 		{
-			printf("%d\t",temp->info);
+			printf("%d -> ",temp->info);
 			temp = temp->next;
 		}
+		printf("%d -> ",temp->info);
 	}
 	printf("\n");
 	return OP_SUC;
 }
 
 
-int position_insertion(struct node* head,struct node* rear)
+int position_insertion()
 {
 	int pos;
 	int x = -1;
@@ -202,24 +208,24 @@ int position_insertion(struct node* head,struct node* rear)
 
 	if( pos > num_entries+1 || pos < 1 )
 	{
-		printf("\nIncorrect value for position");
+		printf("\nIncorrect value for position\n");
 		return -1;
 	}
 	if( pos == 1)
 	{
-		x = front_insertion(head,rear);
+		x = front_insertion();
 		return x;
 	}
 	if( pos == num_entries+1 )
 	{
-		x = end_insertion(head,rear);
+		x = end_insertion();
 		return x;
 	}
 
-	int i = 2;
+	int i = 1;
 	struct node* temp;
 	struct node* prev;
-	temp = head->next;
+	temp = head;
 	prev = head;
 
 	//while( i != pos || temp->next != NULL )
@@ -240,7 +246,7 @@ int position_insertion(struct node* head,struct node* rear)
 	return OP_SUC;
 }
 
-int position_deletion(struct node* head,struct node* rear)
+int position_deletion()
 {
 	int pos;
 	int x = -1;
@@ -249,24 +255,24 @@ int position_deletion(struct node* head,struct node* rear)
 
 	if( pos > num_entries || pos < 1 )
 	{
-		printf("\nIncorrect value for position");
+		printf("\nIncorrect value for position\n");
 		return -1;
 	}
 	if( pos == 1)
 	{
-		x = front_deletion(head,rear);
+		x = front_deletion();
 		return x;
 	}
 	if( pos == num_entries )
 	{
-		x = end_deletion(head,rear);
+		x = end_deletion();
 		return x;
 	}
 
-	int i = 2;
+	int i = 1;
 	struct node* temp;
 	struct node* prev;
-	temp = head->next;
+	temp = head;
 	prev = head;
 
 	//while( i != pos || temp->next != NULL )
