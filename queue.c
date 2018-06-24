@@ -11,7 +11,7 @@ Operations that can be performed:
 
 int get_info();
 struct node* create();
-int equeue();
+int enqueue();
 int display();
 int dequeue();
 
