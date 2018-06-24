@@ -49,7 +49,7 @@ int main()
 					break;
 			case 2: x = end_insertion();
 					break;
-			case 3: x = display(head);
+			case 3: x = display();
 					break;
 			case 4: x = front_deletion();
 					break;
