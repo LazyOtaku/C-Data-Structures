@@ -1,5 +1,6 @@
 /*
 Singly Linked list
+Dynamic Memory Allocation
 Operations that can be performed:
 	1. Insertion in the beginning
 	2. Insertion at the end of the list
@@ -70,7 +71,7 @@ int main()
 	return 0;
 }
 
-int  get_info()
+int get_info()
 {
 	int info;
 	printf("\nEnter num to be inserted: ");

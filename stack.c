@@ -1,9 +1,10 @@
 /*
-Queue
-Dynamic Allocation
+Stack
+Dynamic Memory Allocation
 Operations that can be performed:
-	1. enqueue
-	2. dequeue
+	1. push onto stack
+	2. pop from stack
+	3. peep (view top os stack or tos)
 */
 
 #include <stdio.h>
@@ -12,35 +13,35 @@ Operations that can be performed:
 
 int get_info();
 struct node* create();
-int enqueue();
-int display();
-int dequeue();
+int push();
+int peep();
+int pop();
 
 struct node{
 	int info;
 	struct node* next;
 };
 
-struct node* head ;
-struct node* rear ;
+struct node* tos ;   //top of stack
+struct node* bos ;   //bottom of stack
  
 int main()
 {
 	int n;
 	int x;
-	head = NULL;
-	rear = NULL;
+	tos = NULL;
+	bos = NULL;
 	while(1)
 	{
-		printf("\n1 enqueue\n2 dequeue\n3 display\n4 exit\nEnter your choice: ");
+		printf("\n1 push\n2 pop\n3 peep\n4 exit\nEnter your choice: ");
 		scanf("%d",&n);
 		switch(n)
 		{
-			case 1: x = enqueue();
+			case 1: x = push();
 					break;
-			case 2: x = dequeue();
+			case 2: x = pop();
 					break;
-			case 3: x = display();
+			case 3: x = peep();
 					break;
 			case 4: exit(0);
 			default: x = -1;
@@ -56,7 +57,7 @@ int main()
 int get_info()
 {
 	int info;
-	printf("\nEnter num to be inserted: ");
+	printf("\nEnter num to be pushed: ");
 	scanf("%d",&info);
 	return info;
 }
@@ -72,72 +73,59 @@ struct node* create()
 	return newnode;
 }
 
-int enqueue()
+int push()
 {
 	struct node* newnode;
 	newnode = create();
 	//if(newnode == NULL) return -1; //if failed malloc is to be handled
-	if( head == NULL)
+	if( tos == NULL)
 	{
-		head = newnode;
-		rear = newnode;
+		tos = newnode;
+		bos = newnode;
 	}
 	else
 	{
-		rear->next = newnode;
-		rear = newnode;
-	}
-	return OP_SUC;
-} 
-
-int dequeue()
-{
-	
-	if( head == NULL)
-	{
-		printf("\nQueue is empty\n");
-		return -1;
-	}
-	if( head->next == NULL)
-	{
-		printf("\n%d\n",head->info);
-		free(head);
-		head = NULL;
-		rear = NULL;
-	}
-	else
-	{
-		printf("\n%d\n",head->info);
-		struct node *temp;
-		temp = head;
-		head = temp->next;
-		free(temp);
+		newnode->next = tos;
+		tos = newnode;
 	}
 	return OP_SUC;
 }
 
-int display()
+int pop()
 {
 	
-	printf("\n");
-	if(head == NULL)
+	if( tos == NULL)
 	{
-		printf("Queue is empty\n");
+		printf("\nStack is empty\n");
 		return -1;
 	}
-	if(head->next == NULL)
+	if( tos->next == NULL)
 	{
-		printf("%d\n",head->info);
+		printf("\n%d\n",tos->info);
+		free(tos);
+		tos = NULL;
+		bos = NULL;
 	}
 	else
-	{	struct node* temp;
-		temp = head;
-		while(temp!=rear)
-		{
-			printf("%d <- ",temp->info);
-			temp = temp->next;
-		}
-		printf("%d\n",temp->info);
+	{
+		struct node *temp;
+		temp = tos;
+		tos = temp->next;
+		printf("\n%d\n",temp->info);
+		free(temp);
 	}
+	//printf("\nEntry removed");
+	return OP_SUC;
+}
+
+int peep()
+{
+	//printf("\n%d entries: ",num_entries)
+	if(tos == NULL)
+	{
+		printf("\nStack is empty\n");
+		return -1;
+	}
+	printf("\n%d\n",tos->info);
 	return OP_SUC;
 }
